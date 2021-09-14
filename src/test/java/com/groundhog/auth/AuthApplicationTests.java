@@ -1,8 +1,8 @@
 package com.groundhog.auth;
 
 import com.alibaba.fastjson.JSON;
-import com.groundhog.auth.dao.UserAccountInfoMapper;
-import com.groundhog.auth.model.UserAccountInfo;
+import com.groundhog.auth.dao.OauthUserAccountMapper;
+import com.groundhog.auth.model.OauthUserAccount;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 class AuthApplicationTests {
 
     @Resource
-    private UserAccountInfoMapper userAccountInfoMapper;
+    private OauthUserAccountMapper oauthUserAccountMapper;
     @Test
     void contextLoads() {
 
@@ -21,8 +21,8 @@ class AuthApplicationTests {
 
     @Test
     public void testSelect(){
-        UserAccountInfo userAccountInfoMapper = this.userAccountInfoMapper.selectById(1);
-        System.out.println(JSON.toJSONString(userAccountInfoMapper));
+        OauthUserAccount oauthUserAccountMapper = this.oauthUserAccountMapper.selectById(1);
+        System.out.println(JSON.toJSONString(oauthUserAccountMapper));
     }
 
 }
