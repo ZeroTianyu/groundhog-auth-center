@@ -1,7 +1,7 @@
 package com.groundhog.auth.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.groundhog.auth.model.OauthUserAccount;
+import com.groundhog.auth.model.entity.OauthUserAccount;
 
 /**
  * @author: guotianyu

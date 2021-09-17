@@ -55,7 +55,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients()
-                .checkTokenAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()")
                 .tokenKeyAccess("isAuthenticated()");
     }
 }

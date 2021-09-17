@@ -1,4 +1,4 @@
-package com.groundhog.auth.model;
+package com.groundhog.auth.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.groundhog.base.model.dto.GroundhogBaseEntity;
@@ -23,7 +23,7 @@ public class OauthUserAccount extends GroundhogBaseEntity {
     private Long userId;
 
     /**
-     * 用户id
+     * 用户名
      */
     private String username;
 
@@ -56,7 +56,7 @@ public class OauthUserAccount extends GroundhogBaseEntity {
     /**
      * 状态(0禁用，1启用)
      */
-    private String status;
+    private Boolean status;
 
     /**
      * 账号对应名称

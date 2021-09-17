@@ -3,19 +3,21 @@ package com.groundhog.auth.config;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.groundhog.auth.dao.OauthUserAccountMapper;
-import com.groundhog.auth.model.OauthUserAccount;
+import com.groundhog.auth.model.dto.SecurityUserDetails;
+import com.groundhog.auth.model.dto.SecurityUserRole;
+import com.groundhog.auth.model.entity.OauthUserAccount;
 import com.groundhog.base.excption.GroundhogBizException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * KiteUserDetailsService
@@ -43,8 +45,14 @@ public class KiteUserDetailsService implements UserDetailsService {
         }
 
         // TODO 权限通过feign调用用户服务获取
+        Set<SecurityUserRole> authorities = new HashSet<>();
+        SecurityUserRole role = new SecurityUserRole("ROLE_ADMIN");
+        authorities.add(role);
 
         // 返回自定义的 KiteUserDetails
-        return new User(username, oauthUserAccount.getPassword(), Collections.EMPTY_LIST);
+        return SecurityUserDetails.builder()
+                .securityUser(oauthUserAccount)
+                .roleList(authorities).build();
+
     }
 }
