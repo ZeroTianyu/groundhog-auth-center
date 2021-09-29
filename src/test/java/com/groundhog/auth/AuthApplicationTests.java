@@ -2,7 +2,7 @@ package com.groundhog.auth;
 
 import com.alibaba.fastjson.JSON;
 import com.groundhog.auth.dao.OauthUserAccountMapper;
-import com.groundhog.auth.model.entity.OauthUserAccount;
+import com.groundhog.security.model.entity.OauthUserAccount;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

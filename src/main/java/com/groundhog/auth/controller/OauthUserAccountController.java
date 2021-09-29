@@ -7,8 +7,8 @@ package com.groundhog.auth.controller;
  */
 
 import com.groundhog.auth.dao.OauthUserAccountMapper;
-import com.groundhog.auth.model.entity.OauthUserAccount;
 import com.groundhog.base.model.vo.GroundhogResult;
+import com.groundhog.security.model.entity.OauthUserAccount;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

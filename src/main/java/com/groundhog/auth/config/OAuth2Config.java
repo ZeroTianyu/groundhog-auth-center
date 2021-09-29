@@ -8,6 +8,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import javax.annotation.Resource;
@@ -37,12 +39,33 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
+        DefaultAccessTokenConverter defaultAccessTokenConverter = new DefaultAccessTokenConverter();
+        defaultAccessTokenConverter.setUserTokenConverter(new UserAuthenticationConverter());
         /**
          * redis token 方式
          */
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(kiteUserDetailsService)
+                .accessTokenConverter(defaultAccessTokenConverter)
                 .tokenStore(redisTokenStore);
+
+        //token 增强器
+//        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+//        tokenEnhancerChain.setTokenEnhancers(new ArrayList<>(tokenEnhancers));
+
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        //设置重用刷新令牌
+        defaultTokenServices.setReuseRefreshToken(true);
+        //设置支持刷新令牌
+        defaultTokenServices.setSupportRefreshToken(true);
+        // Token存储
+        defaultTokenServices.setTokenStore(redisTokenStore);
+        // 设置访问令牌有效秒
+//        defaultTokenServices.setAccessTokenValiditySeconds(accessTokenValiditySeconds);
+
+        //设置刷新令牌有效秒
+//        defaultTokenServices.setRefreshTokenValiditySeconds(refreshTokenValiditySeconds);
 
     }
 
